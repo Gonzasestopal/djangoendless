@@ -7,11 +7,9 @@ from .models import Person
 
 
 def index(request):
-    """ Redirects to index with paginated querset. """
-
+    """ Redirects to index with paginated queryset. """
     people = Person.objects.all()
     text_search = request.GET.get('text_search', '')
-    page = request.GET.get('page', 1)
 
     if text_search:
         people = Person.objects.filter(Q(title__icontains=text_search))
@@ -20,6 +18,7 @@ def index(request):
     page = paginator.page(1)
 
     if request.is_ajax():
+        page = request.GET.get('page', 1)
         try:
             page = paginator.page(page)
         except:
