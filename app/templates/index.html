@@ -1,0 +1,31 @@
+{% load static %}
+
+<!doctype html>
+  <html>
+    <title>Django Endless Pagination</title>
+    <meta charset="utf-8">
+    <head>
+      <!-- app css -->
+      <link type="text/css" href="{% static 'css/app.css' %}">
+    </head>
+    <body>
+    <script>
+        var pageNum = {{ page.number }};
+        var hasNextPage = {{ page.has_next|lower }};
+        var searchText = "{{ request.GET.text_search }}";
+    </script>
+    
+    <div class="container">
+        <h1>Contact book</h1>
+        <hr>
+        {% for person in people %}
+            <h2>{{person.first_name}}</h2>
+        {% endfor %}
+    </div>
+
+    <!-- core scripts -->
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <!-- app scripts -->
+    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+    </body>
+</html>
